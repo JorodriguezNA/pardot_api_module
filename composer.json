@@ -1,5 +1,5 @@
 {
-    "name": "nabmarketingteam/pardotapi-module",
+    "name": "pardot/pardotapi-module",
     "type": "streams-addon",
     "description": "A module for managing pardot api calls.",
     "authors": [

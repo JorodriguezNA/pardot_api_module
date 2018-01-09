@@ -24,7 +24,13 @@ class PardotapiModule extends Module
      *
      * @var array
      */
-    protected $sections = [];
+    protected $sections = [
+        'instances' => [
+            'buttons' => [
+                'new_instance',
+            ],
+        ],
+    ];
 
     public function checkProspect($rest_domain, $pardot_user_key, $pardot_api_key, $pardotArray) 
     {

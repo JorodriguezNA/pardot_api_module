@@ -1,6 +1,10 @@
 <?php namespace Pardot\PardotapiModule;
 
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
+use Pardot\PardotapiModule\Instance\Contract\InstanceRepositoryInterface;
+use Pardot\PardotapiModule\Instance\InstanceRepository;
+use Anomaly\Streams\Platform\Model\Pardotapi\PardotapiInstancesEntryModel;
+use Pardot\PardotapiModule\Instance\InstanceModel;
 use Illuminate\Routing\Router;
 
 class PardotapiModuleServiceProvider extends AddonServiceProvider
@@ -39,7 +43,12 @@ class PardotapiModuleServiceProvider extends AddonServiceProvider
      *
      * @type array|null
      */
-    protected $routes = [];
+    protected $routes = [
+        'admin/pardotapi'           => 'Pardot\PardotapiModule\Http\Controller\Admin\InstancesController@index',
+        'admin/pardotapi/create'    => 'Pardot\PardotapiModule\Http\Controller\Admin\InstancesController@create',
+        'admin/pardotapi/edit/{id}' => 'Pardot\PardotapiModule\Http\Controller\Admin\InstancesController@edit',
+        'pardot_form_submit/{slug}' => 'Pardot\PardotapiModule\Http\Controller\PardotController@createprospect',
+    ];
 
     /**
      * The addon middleware.
@@ -82,14 +91,18 @@ class PardotapiModuleServiceProvider extends AddonServiceProvider
      *
      * @type array|null
      */
-    protected $bindings = [];
+    protected $bindings = [
+        PardotapiInstancesEntryModel::class => InstanceModel::class,
+    ];
 
     /**
      * The addon singleton bindings.
      *
      * @type array|null
      */
-    protected $singletons = [];
+    protected $singletons = [
+        InstanceRepositoryInterface::class => InstanceRepository::class,
+    ];
 
     /**
      * Additional service providers.
